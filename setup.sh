@@ -37,32 +37,38 @@ step "3/9 — Python 3.10"
 
 NEED_INSTALL=false
 
-# Check python3.10
+# Check python3.10 exists
 
 if ! command -v python3.10 &>/dev/null; then
 NEED_INSTALL=true
 fi
 
-# Check venv module
+# Check venv command (basic check)
 
 if ! python3.10 -m venv --help &>/dev/null; then
 NEED_INSTALL=true
 fi
 
-# Check distutils (required for some builds)
+# Check ensurepip (CRITICAL)
+
+if ! python3.10 -m ensurepip --version &>/dev/null; then
+NEED_INSTALL=true
+fi
+
+# Check distutils
 
 if ! python3.10 -c "import distutils" &>/dev/null; then
 NEED_INSTALL=true
 fi
 
 if [ "$NEED_INSTALL" = true ]; then
-step "Installing Python 3.10 + required modules"
+step "Installing Python 3.10 + venv + distutils"
 add-apt-repository ppa:deadsnakes/ppa -y
 apt-get update
-apt-get install -y python3.10 python3.10-venv python3.10-distutils
-ok "Python 3.10 + venv + distutils installed"
+apt-get install -y python3.10 python3.10-venv python3.10-distutils python3-pip-whl python3-setuptools-whl
+ok "Python 3.10 fully ready"
 else
-ok "Python 3.10 + venv + distutils already installed"
+ok "Python 3.10 fully ready"
 fi
 
 step "4/9 — Install pip for Python 3.10"
