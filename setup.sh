@@ -1,4 +1,4 @@
-d#!/bin/bash
+#!/bin/bash
 set -e
 
 VPS_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -19,7 +19,7 @@ fi
 
 step "1/8 — System packages"
 apt-get update
-apt-get install -y curl wget gnupg2 ca-certificates lsb-release socat jq docker.io
+apt-get install -y curl wget gnupg2 ca-certificates lsb-release socat jq docker.io python3-pip
 ok "System packages installed"
 
 step "2/8 — Docker"
@@ -35,8 +35,7 @@ ok "Docker running"
 
 step "3/8 — Python3"
 if ! command -v python3 &>/dev/null; then
-    apt-get install -y python3 
-    apt install python3-pip -y
+    apt-get install -y python3
     ok "Python3 installed"
 else
     ok "Python3 already installed"
