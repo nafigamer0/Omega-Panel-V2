@@ -35,7 +35,8 @@ ok "Docker running"
 
 step "3/8 — Python3"
 if ! command -v python3 &>/dev/null; then
-    apt-get install -y python3 python3-pip
+    apt-get install -y python3 
+    apt install python3-pip -y
     ok "Python3 installed"
 else
     ok "Python3 already installed"
