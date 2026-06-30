@@ -34,13 +34,35 @@ systemctl start docker 2>/dev/null || true
 ok "Docker running"
 
 step "3/9 — Python 3.10"
+
+NEED_INSTALL=false
+
+# Check python3.10
+
 if ! command -v python3.10 &>/dev/null; then
+NEED_INSTALL=true
+fi
+
+# Check venv module
+
+if ! python3.10 -m venv --help &>/dev/null; then
+NEED_INSTALL=true
+fi
+
+# Check distutils (required for some builds)
+
+if ! python3.10 -c "import distutils" &>/dev/null; then
+NEED_INSTALL=true
+fi
+
+if [ "$NEED_INSTALL" = true ]; then
+step "Installing Python 3.10 + required modules"
 add-apt-repository ppa:deadsnakes/ppa -y
 apt-get update
-apt-get install -y python3.10 python3.10-distutils python3.10-venv
-ok "Python 3.10 installed"
+apt-get install -y python3.10 python3.10-venv python3.10-distutils
+ok "Python 3.10 + venv + distutils installed"
 else
-ok "Python 3.10 already installed"
+ok "Python 3.10 + venv + distutils already installed"
 fi
 
 step "4/9 — Install pip for Python 3.10"
