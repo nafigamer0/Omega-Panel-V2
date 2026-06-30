@@ -13,7 +13,7 @@ git clone https://github.com/nafigamer0/Omega-Panel-V2.git
 cd Omega-Panel-V2 || exit
 
 # Give execute permission (just in case)
-chmod +x setup.sh
+chmod +x Omega-Panel-V2/setup.sh
 
 # Run setup
-sudo bash setup.sh
+sudo bash Omega-Panel-V2/setup.sh
