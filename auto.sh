@@ -10,10 +10,10 @@ apt install git -y
 git clone https://github.com/nafigamer0/Omega-Panel-V2.git
 
 # Go into the directory
-cd Omega-Panel-V2 || exit
+cd Omega-Panel-V2
 
 # Give execute permission (just in case)
-chmod +x Omega-Panel-V2/setup.sh
+chmod +x setup.sh
 
 # Run setup
-sudo bash Omega-Panel-V2/setup.sh
+sudo bash setup.sh
